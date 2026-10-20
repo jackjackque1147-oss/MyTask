@@ -1,48 +1,68 @@
-# MyTask
+<div align="center">
+  <img src="Assets/MyTask-icon.png" alt="MyTask application icon" width="112">
+  <h1>MyTask</h1>
+  <p><strong>A desktop automation studio for repeatable Windows tasks.</strong></p>
+  <p>Record keyboard and mouse actions, refine the sequence, and replay it with configurable hotkeys.</p>
+  <p>
+    <a href="https://github.com/jackjackque1147-oss/MyTask/releases/latest">
+      <img alt="Latest release" src="https://img.shields.io/github/v/release/jackjackque1147-oss/MyTask?style=for-the-badge&color=7163f5">
+    </a>
+    <img alt="Windows x64" src="https://img.shields.io/badge/Windows-x64-15cfe3?style=for-the-badge">
+    <img alt=".NET 9" src="https://img.shields.io/badge/.NET-9-8b6cff?style=for-the-badge">
+  </p>
+</div>
 
-MyTask is a Windows desktop automation application inspired by AutoHotkey. This initial .NET 9 WPF build provides global input recording, editable macro events, playback, and a local script library in a dark-themed interface.
+## The app
 
-> **Project status:** This is an early MVP. System-tray controls, syntax highlighting, variable inspection/debugging, conditional blocks, and system-command actions are not implemented yet.
+![MyTask dashboard showing the execution hub, recorder navigation, playback controls, and system monitor](Assets/MyTask-dashboard.png)
 
-## Available features
+## What you can do
 
-- **Execution dashboard:** Play/stop controls, loop progress, CPU and memory monitor, and input-hook status.
-- **Recorder studio:** Explicitly start/stop global keyboard and mouse recording; edit, duplicate, delete, or add waits, key presses, and clicks.
-- **Playback:** Replay events with recorded delays, keyboard/mouse actions, a three-second target-switch countdown, and finite or unlimited looping. Playback can be paused/resumed or stopped with global hotkeys.
-- **Global hotkeys:** Configure and persist shortcuts for toggling recording, toggling playback, stopping all actions, and pausing/resuming playback.
-- **Custom mouse icon:** The generated MyTask cursor artwork is used for the app window, executable, and installer.
-- **Script library:** Save JSON recordings and `.mytask` scripts, browse local scripts, and load a script by double-clicking it.
-- **Modern dark UI:** Indigo, purple, and cyan accents.
+| Feature | Details |
+| --- | --- |
+| **Execution dashboard** | Start recording or playback, check macro and loop counts, and view CPU, memory, and input-hook status. |
+| **Macro recorder** | Explicitly record global keyboard and mouse input, then review the live event stream. |
+| **Event editor** | Edit, duplicate, or delete events and add waits, key presses, or mouse clicks. |
+| **Macro playback** | Replay recorded delays and actions, pause or stop playback, and choose a finite loop count or **Unlimited**. A short target-switch countdown gives you time to focus the intended app. |
+| **Global hotkeys** | Configure shortcuts for recording, playback, stop-all, and pause/resume in Settings. |
+| **Script library** | Save and reopen recordings and `.mytask` scripts from your local library. |
+| **Custom app icon** | The MyTask mouse icon appears in the app window, executable, installer, and shortcuts. |
 
-## Technology
+> **Current scope:** MyTask is an early MVP. System-tray controls, script syntax highlighting, variable inspection/debugging, conditional task blocks, and system-command actions are not implemented yet.
 
-- C# and .NET 9
-- WPF desktop UI
-- MVVM with CommunityToolkit.Mvvm
-- Windows low-level keyboard/mouse hooks and `SendInput`
+## Get started
 
-## Data directories
+1. Open [GitHub Releases](https://github.com/jackjackque1147-oss/MyTask/releases/latest).
+2. Download `MyTask-Setup-vX.Y.Z.exe` to install, or choose the portable executable/ZIP.
+3. Launch MyTask from the Start menu or run the portable executable.
+4. Select **Start recording** when ready. Review and edit the captured events, then choose **Play macro** to run them.
 
-User data is stored in `%LOCALAPPDATA%\MyTask` so the application can write data without requiring installation-folder permissions:
+The Windows x64 release includes its .NET runtime. See the [User Installation Guide](INSTALLATION.md) for setup, checksum verification, troubleshooting, and uninstall details.
+
+## Privacy and safe use
+
+Recording is opt-in. While recording is active, MyTask captures keyboard and mouse input system-wide, including input in other applications. Captured events stay in memory until you choose to save them; MyTask does not upload them. Avoid recording passwords or other sensitive information.
+
+Playback sends input to whichever application is currently active. Use the target-switch countdown to focus the intended app before playback begins. Pausing or stopping playback releases keys and mouse buttons held by the macro.
+
+Default hotkeys are `Ctrl+Alt+F9` (toggle recording), `Ctrl+Alt+F10` (toggle playback), `Ctrl+Alt+F11` (stop all), and `Ctrl+Alt+F12` (pause/resume). Change them in **Settings** if another app already uses one.
+
+## Local data
+
+MyTask stores scripts, recordings, logs, and settings under `%LOCALAPPDATA%\MyTask`:
 
 ```text
 %LOCALAPPDATA%\MyTask\
-├── Scripts/     # User-authored scripts
-├── Recorded/    # Saved raw recordings
-├── Logs/        # Error log
-└── Config/      # Application settings and keybindings
+├── Scripts/     # Saved scripts
+├── Recorded/    # Saved recordings
+├── Logs/        # Application logs
+└── Config/      # Settings and hotkeys
 ```
 
-## Installation
+## Built with
 
-Download the latest Windows installer from [GitHub Releases](https://github.com/jackjackque1147-oss/MyTask/releases/latest). For portable downloads and upgrade/uninstall guidance, see [INSTALLATION.md](INSTALLATION.md).
+- C# and .NET 9
+- WPF with MVVM and CommunityToolkit.Mvvm
+- Windows low-level keyboard and mouse hooks with `SendInput`
 
-## Safety and permissions
-
-Recording is opt-in and begins only after pressing Record. While active, MyTask captures keyboard and mouse input system-wide, including input in other applications; captured data remains in memory until you save it. Playback sends input to the currently active application. After starting playback, use the three-second countdown to switch to the intended target. Do not record passwords or other sensitive input. Pausing or stopping playback releases keys and mouse buttons that remain held by the macro.
-
-The default global shortcuts are `Ctrl+Alt+F9` (toggle recording), `Ctrl+Alt+F10` (toggle playback), `Ctrl+Alt+F11` (stop all), and `Ctrl+Alt+F12` (pause/resume). Change them from **Settings** if another application already uses a shortcut.
-
-## Contributing
-
-Build requirements and commands are in [INSTALLATION.md](INSTALLATION.md). There is not yet an automated test suite.
+MyTask releases are currently unsigned, so Windows may show a publisher warning. Download releases only from the official repository.
