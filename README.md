@@ -35,7 +35,7 @@ User data is stored in `%LOCALAPPDATA%\MyTask` so the application can write data
 
 ## Installation
 
-Download the latest Windows installer from [GitHub Releases](https://github.com/jackjackque1147-oss/MyTask/releases/latest). For portable downloads, source-build steps, and upgrade/uninstall guidance, see [INSTALLATION.md](INSTALLATION.md). Maintainers can use [RELEASE_GUIDE.md](RELEASE_GUIDE.md) for the source file map, build, and next-release steps.
+Download the latest Windows installer from [GitHub Releases](https://github.com/jackjackque1147-oss/MyTask/releases/latest). For portable downloads and upgrade/uninstall guidance, see [INSTALLATION.md](INSTALLATION.md).
 
 ## Safety and permissions
 

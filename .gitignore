@@ -3,5 +3,6 @@ obj/
 .vs/
 publish/
 artifacts/
+/DEVELOPER_GUIDE.local.md
 *.user
 *.suo
