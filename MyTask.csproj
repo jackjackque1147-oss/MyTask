@@ -7,8 +7,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>MyTask</RootNamespace>
     <AssemblyName>MyTask</AssemblyName>
+    <ApplicationIcon>Assets\MyTask.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <Resource Include="Assets\MyTask.ico" />
   </ItemGroup>
 </Project>

@@ -57,6 +57,8 @@ The executable is `publish\win-x64\MyTask.exe`. The self-contained output includ
 
 The publish command creates only the executable. The tagged GitHub Actions workflow compiles the Inno Setup installer, creates the portable ZIP, and calculates SHA-256 checksums. Code signing and update delivery still need to be configured before distributing production builds.
 
+For the source file map and repeatable steps to build and publish future versions, see [RELEASE_GUIDE.md](RELEASE_GUIDE.md).
+
 ## Publish a GitHub release
 
 The source repository is [jackjackque1147-oss/MyTask](https://github.com/jackjackque1147-oss/MyTask). To publish a later release:

@@ -10,6 +10,7 @@ MyTask is a Windows desktop automation application inspired by AutoHotkey. This 
 - **Recorder studio:** Explicitly start/stop global keyboard and mouse recording; edit, duplicate, delete, or add waits, key presses, and clicks.
 - **Playback:** Replay events with recorded delays, keyboard/mouse actions, a three-second target-switch countdown, and finite or unlimited looping. Playback can be paused/resumed or stopped with global hotkeys.
 - **Global hotkeys:** Configure and persist shortcuts for toggling recording, toggling playback, stopping all actions, and pausing/resuming playback.
+- **Custom mouse icon:** The generated MyTask cursor artwork is used for the app window, executable, and installer.
 - **Script library:** Save JSON recordings and `.mytask` scripts, browse local scripts, and load a script by double-clicking it.
 - **Modern dark UI:** Indigo, purple, and cyan accents.
 
@@ -34,7 +35,7 @@ User data is stored in `%LOCALAPPDATA%\MyTask` so the application can write data
 
 ## Installation
 
-Download the latest Windows installer from [GitHub Releases](https://github.com/jackjackque1147-oss/MyTask/releases/latest). For portable downloads, source-build steps, and upgrade/uninstall guidance, see [INSTALLATION.md](INSTALLATION.md).
+Download the latest Windows installer from [GitHub Releases](https://github.com/jackjackque1147-oss/MyTask/releases/latest). For portable downloads, source-build steps, and upgrade/uninstall guidance, see [INSTALLATION.md](INSTALLATION.md). Maintainers can use [RELEASE_GUIDE.md](RELEASE_GUIDE.md) for the source file map, build, and next-release steps.
 
 ## Safety and permissions
 
