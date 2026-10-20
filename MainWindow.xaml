@@ -1,0 +1,395 @@
+<Window x:Class="MyTask.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MyTask" Width="960" Height="680" MinWidth="820" MinHeight="580"
+        WindowStartupLocation="CenterScreen" Background="{StaticResource BackgroundBrush}"
+        Foreground="{StaticResource TextBrush}" Loaded="Window_Loaded" Closing="Window_Closing">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="210" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#0E1626" BorderBrush="#243149" BorderThickness="0,0,1,0">
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Top" Margin="24,26,20,30">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="38" Height="38" CornerRadius="12" Background="#7163F5">
+                            <TextBlock Text="M" FontSize="21" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <StackPanel Margin="12,1,0,0">
+                            <TextBlock Text="MyTask" FontSize="19" FontWeight="Bold" />
+                            <TextBlock Text="AUTOMATION STUDIO" FontSize="9" Foreground="{StaticResource MutedBrush}"
+                                       FontWeight="SemiBold" Margin="0,2,0,0" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Margin="14,0">
+                    <TextBlock Text="WORKSPACE" Foreground="#687792" FontSize="10" FontWeight="Bold"
+                               Margin="12,0,0,10" />
+                    <Button Content="▦   Dashboard" HorizontalContentAlignment="Left" Margin="0,0,0,6"
+                            Background="#1A2338" BorderBrush="#5148A8" Click="DashboardNav_Click" />
+                    <Button Content="◉   Recorder Studio" HorizontalContentAlignment="Left" Margin="0,0,0,6"
+                            Click="StudioNav_Click" />
+                    <Button Content="▤   Script Library" HorizontalContentAlignment="Left" Margin="0,0,0,6"
+                            Click="ScriptsNav_Click" />
+                    <Button Content="⚙   Settings" HorizontalContentAlignment="Left" Margin="0,0,0,6"
+                            Click="SettingsNav_Click" />
+
+                    <Border Margin="7,25,7,0" Padding="13" CornerRadius="12"
+                            Background="#141E31" BorderBrush="#27344C" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="QUICK TIP" Foreground="{StaticResource CyanBrush}"
+                                       FontSize="10" FontWeight="Bold" />
+                            <TextBlock Text="Record only when you are ready. Captured input is kept locally and is not saved until you choose to save it."
+                                       TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}"
+                                       FontSize="11" LineHeight="17" Margin="0,8,0,0" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Bottom" Margin="22,0,20,20">
+                    <Border Height="1" Background="#263149" Margin="0,0,0,13" />
+                    <TextBlock Text="DATA DIRECTORY" Foreground="#687792" FontSize="9" FontWeight="Bold" />
+                    <TextBlock Text="{Binding DataFolder}" Foreground="{StaticResource MutedBrush}"
+                               FontSize="10" TextWrapping="Wrap" Margin="0,5,0,10" />
+                    <Button Content="Open data folder" HorizontalContentAlignment="Center"
+                            Click="OpenDataFolder_Click" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <Grid Grid.Column="1" Margin="32,25,32,22">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="0,0,0,22">
+                <StackPanel>
+                    <TextBlock x:Name="PageEyebrow" Text="OVERVIEW" Foreground="{StaticResource CyanBrush}"
+                               FontSize="10" FontWeight="Bold" />
+                    <TextBlock x:Name="PageTitle" Text="Execution hub" FontSize="28"
+                               FontWeight="Bold" Margin="0,4,0,0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Border CornerRadius="15" Background="#182337" Padding="11,7" Margin="0,0,12,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="StatusDot" Width="7" Height="7" Fill="{StaticResource GreenBrush}"
+                                     VerticalAlignment="Center" Margin="0,0,7,0" />
+                            <TextBlock x:Name="HeaderState" Text="READY" FontSize="10"
+                                       Foreground="{StaticResource MutedBrush}" FontWeight="Bold" />
+                        </StackPanel>
+                    </Border>
+                    <Button x:Name="PauseButton" Content="Ⅱ  Pause" Click="Pause_Click"
+                            Visibility="Collapsed" Margin="0,0,8,0" />
+                    <Button x:Name="PlayButton" Content="▶  Play macro" Style="{StaticResource PrimaryButton}"
+                            Click="Play_Click" />
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <ScrollViewer x:Name="DashboardPage" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <Border CornerRadius="18" Padding="26" Margin="0,0,0,17"
+                                Background="#171E39" BorderBrush="#423A78" BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="YOUR AUTOMATION WORKSPACE" Foreground="#B9B4FF"
+                                               FontSize="10" FontWeight="Bold" />
+                                    <TextBlock Text="Make the repetitive stuff disappear."
+                                               FontSize="27" FontWeight="Bold" Margin="0,10,0,5" />
+                                    <TextBlock Text="Record input, refine the event sequence, then replay it when you need it."
+                                               Foreground="#A7B1CA" FontSize="13" />
+                                    <StackPanel Orientation="Horizontal" Margin="0,21,0,0">
+                                        <Button Content="●  Start recording" Style="{StaticResource PrimaryButton}"
+                                                Click="StartRecording_Click" Margin="0,0,9,0" />
+                                        <Button Content="Open recorder studio" Click="StudioNav_Click" />
+                                    </StackPanel>
+                                </StackPanel>
+                                <Border Grid.Column="1" Width="120" Height="120" CornerRadius="60"
+                                        Background="#282653" BorderBrush="#6860C4" BorderThickness="1"
+                                        VerticalAlignment="Center" Margin="25,0,12,0">
+                                    <TextBlock Text="⌘" FontSize="51" Foreground="#A89FFF"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <UniformGrid Columns="3" Margin="0,0,0,17">
+                            <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}"
+                                    BorderThickness="1" CornerRadius="14" Padding="18" Margin="0,0,11,0">
+                                <StackPanel>
+                                    <TextBlock Text="EVENTS IN MACRO" Foreground="{StaticResource MutedBrush}"
+                                               FontSize="10" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Events.Count}" FontSize="28" FontWeight="Bold" Margin="0,9,0,2" />
+                                    <TextBlock Text="Ready to edit or play" Foreground="{StaticResource MutedBrush}" FontSize="11" />
+                                </StackPanel>
+                            </Border>
+                            <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}"
+                                    BorderThickness="1" CornerRadius="14" Padding="18" Margin="5,0">
+                                <StackPanel>
+                                    <TextBlock Text="COMPLETED LOOPS" Foreground="{StaticResource MutedBrush}"
+                                               FontSize="10" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding CompletedLoops}" FontSize="28" FontWeight="Bold" Margin="0,9,0,2" />
+                                    <TextBlock Text="This playback session" Foreground="{StaticResource MutedBrush}" FontSize="11" />
+                                </StackPanel>
+                            </Border>
+                            <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}"
+                                    BorderThickness="1" CornerRadius="14" Padding="18" Margin="11,0,0,0">
+                                <StackPanel>
+                                    <TextBlock Text="SAVED SCRIPTS" Foreground="{StaticResource MutedBrush}"
+                                               FontSize="10" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Scripts.Count}" FontSize="28" FontWeight="Bold" Margin="0,9,0,2" />
+                                    <TextBlock Text="In your local library" Foreground="{StaticResource MutedBrush}" FontSize="11" />
+                                </StackPanel>
+                            </Border>
+                        </UniformGrid>
+
+                        <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}"
+                                BorderThickness="1" CornerRadius="14" Padding="20">
+                            <StackPanel>
+                                <TextBlock Text="System monitor" FontSize="15" FontWeight="SemiBold" />
+                                <TextBlock Text="Live stats for the MyTask desktop process" Foreground="{StaticResource MutedBrush}"
+                                           FontSize="11" Margin="0,4,0,16" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="CPU" Foreground="{StaticResource MutedBrush}" FontSize="10" />
+                                        <TextBlock x:Name="CpuUsage" Text="0%" FontSize="20" FontWeight="SemiBold" Margin="0,4,0,0" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="MEMORY" Foreground="{StaticResource MutedBrush}" FontSize="10" />
+                                        <TextBlock x:Name="MemoryUsage" Text="0 MB" FontSize="20" FontWeight="SemiBold" Margin="0,4,0,0" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="INPUT HOOKS" Foreground="{StaticResource MutedBrush}" FontSize="10" />
+                                        <TextBlock x:Name="HookStatus" Text="Inactive" FontSize="20" FontWeight="SemiBold"
+                                                   Foreground="{StaticResource GreenBrush}" Margin="0,4,0,0" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <Grid x:Name="StudioPage" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="1" CornerRadius="14" Padding="13" Margin="0,0,0,12">
+                        <DockPanel>
+                            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                                <Button Content="●  Record" Style="{StaticResource PrimaryButton}"
+                                        Command="{Binding StartRecordingCommand}" Margin="0,0,7,0" />
+                                <Button Content="■  Stop" Style="{StaticResource DangerButton}"
+                                        Command="{Binding StopRecordingCommand}" Margin="0,0,7,0" />
+                                <Border Width="1" Background="{StaticResource BorderBrush}" Margin="5,2,12,2" />
+                                <Button Content="+ Wait" Command="{Binding AddWaitCommand}" Margin="0,0,7,0" />
+                                <Button Content="+ Key press" Command="{Binding AddKeyCommand}" Margin="0,0,7,0" />
+                                <Button Content="+ Click here" Command="{Binding AddClickCommand}" />
+                            </StackPanel>
+                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Content="Duplicate" Command="{Binding DuplicateEventCommand}" Margin="0,0,7,0" />
+                                <Button Content="Delete" Command="{Binding DeleteEventCommand}" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Grid.Row="1" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="1" CornerRadius="14" Padding="14">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <DockPanel Margin="3,0,3,12">
+                                <StackPanel>
+                                    <TextBlock Text="Event stream" FontSize="16" FontWeight="SemiBold" />
+                                    <TextBlock Text="Edit timing, coordinates, key names, and wheel delta directly in the table."
+                                               Foreground="{StaticResource MutedBrush}" FontSize="11" Margin="0,4,0,0" />
+                                </StackPanel>
+                                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                                    <TextBlock Text="LOOPS" Foreground="{StaticResource MutedBrush}" FontSize="10"
+                                               FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,8,0" />
+                                    <ComboBox Width="112" ItemsSource="{Binding LoopOptions}"
+                                              SelectedItem="{Binding LoopSelection}" />
+                                </StackPanel>
+                            </DockPanel>
+                            <DataGrid x:Name="EventGrid" Grid.Row="1" ItemsSource="{Binding Events}"
+                                      SelectedItem="{Binding SelectedEvent}" AlternationCount="2"
+                                      RowHeight="36" CanUserResizeRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="EVENT TYPE" Binding="{Binding Type, UpdateSourceTrigger=PropertyChanged}"
+                                                        Width="1.25*" />
+                                    <DataGridTextColumn Header="KEY" Binding="{Binding Key, UpdateSourceTrigger=PropertyChanged}"
+                                                        Width="*" />
+                                    <DataGridTextColumn Header="X" Binding="{Binding X, UpdateSourceTrigger=PropertyChanged}"
+                                                        Width="0.6*" />
+                                    <DataGridTextColumn Header="Y" Binding="{Binding Y, UpdateSourceTrigger=PropertyChanged}"
+                                                        Width="0.6*" />
+                                    <DataGridTextColumn Header="DELAY (MS)" Binding="{Binding DelayMs, UpdateSourceTrigger=PropertyChanged}"
+                                                        Width="*" />
+                                    <DataGridTextColumn Header="VALUE" Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                                        Width="0.7*" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <DockPanel Grid.Row="2" Margin="2,12,2,0">
+                                <TextBlock Text="{Binding Events.Count, StringFormat={}{0} recorded events}"
+                                           Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" />
+                                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBox Width="180" Text="{Binding ActiveScriptName, UpdateSourceTrigger=LostFocus}"
+                                             Margin="0,0,8,0" ToolTip="Script name" />
+                                    <Button Content="Save recording" Click="SaveRecording_Click" Margin="0,0,7,0" />
+                                    <Button Content="Save to Scripts" Style="{StaticResource PrimaryButton}"
+                                            Click="SaveScript_Click" />
+                                </StackPanel>
+                            </DockPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <Grid x:Name="ScriptsPage" Visibility="Collapsed">
+                    <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="1" CornerRadius="14" Padding="20">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <DockPanel Margin="0,0,0,14">
+                                <StackPanel>
+                                    <TextBlock Text="Script library" FontSize="16" FontWeight="SemiBold" />
+                                    <TextBlock Text="Local .mytask JSON macros stored in your user profile."
+                                               Foreground="{StaticResource MutedBrush}" FontSize="11" Margin="0,4,0,0" />
+                                </StackPanel>
+                                <Button DockPanel.Dock="Right" Content="Refresh" Click="RefreshScripts_Click" />
+                            </DockPanel>
+                            <DataGrid x:Name="ScriptGrid" Grid.Row="1" ItemsSource="{Binding Scripts}"
+                                      IsReadOnly="True" RowHeight="38" MouseDoubleClick="ScriptGrid_DoubleClick">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="SCRIPT" Binding="{Binding Name}" Width="*" />
+                                    <DataGridTextColumn Header="LOCATION" Binding="{Binding FullPath}" Width="2*" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <ScrollViewer x:Name="SettingsPage" Visibility="Collapsed"
+                              VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}"
+                                BorderThickness="1" CornerRadius="14" Padding="22">
+                            <StackPanel>
+                                <TextBlock Text="Global hotkeys" FontSize="17" FontWeight="SemiBold" />
+                                <TextBlock Text="Click a shortcut field and press the key combination you want. Shortcuts work while MyTask is running, even when it is in the background."
+                                           Foreground="{StaticResource MutedBrush}" FontSize="12"
+                                           TextWrapping="Wrap" Margin="0,6,0,18" />
+
+                                <Grid Margin="0,0,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="180" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="Toggle recording" FontWeight="SemiBold" />
+                                        <TextBlock Text="Start recording, or stop the active recording."
+                                                   Foreground="{StaticResource MutedBrush}" FontSize="11" Margin="0,3,0,0" />
+                                    </StackPanel>
+                                    <TextBox Grid.Column="1" Text="{Binding Hotkeys.RecordToggle}"
+                                             IsReadOnly="True" Tag="RecordToggle" PreviewKeyDown="HotkeyField_PreviewKeyDown"
+                                             ToolTip="Click, then press the new shortcut" />
+                                </Grid>
+
+                                <Border Height="1" Background="{StaticResource BorderBrush}" Margin="0,0,0,12" />
+                                <Grid Margin="0,0,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="180" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="Toggle playback" FontWeight="SemiBold" />
+                                        <TextBlock Text="Start the macro, or stop playback if it is running."
+                                                   Foreground="{StaticResource MutedBrush}" FontSize="11" Margin="0,3,0,0" />
+                                    </StackPanel>
+                                    <TextBox Grid.Column="1" Text="{Binding Hotkeys.PlayToggle}"
+                                             IsReadOnly="True" Tag="PlayToggle" PreviewKeyDown="HotkeyField_PreviewKeyDown"
+                                             ToolTip="Click, then press the new shortcut" />
+                                </Grid>
+
+                                <Border Height="1" Background="{StaticResource BorderBrush}" Margin="0,0,0,12" />
+                                <Grid Margin="0,0,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="180" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="Stop all" FontWeight="SemiBold" />
+                                        <TextBlock Text="Stop both recording and macro playback."
+                                                   Foreground="{StaticResource MutedBrush}" FontSize="11" Margin="0,3,0,0" />
+                                    </StackPanel>
+                                    <TextBox Grid.Column="1" Text="{Binding Hotkeys.Stop}"
+                                             IsReadOnly="True" Tag="Stop" PreviewKeyDown="HotkeyField_PreviewKeyDown"
+                                             ToolTip="Click, then press the new shortcut" />
+                                </Grid>
+
+                                <Border Height="1" Background="{StaticResource BorderBrush}" Margin="0,0,0,12" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="180" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="Toggle pause" FontWeight="SemiBold" />
+                                        <TextBlock Text="Pause or resume the current macro playback."
+                                                   Foreground="{StaticResource MutedBrush}" FontSize="11" Margin="0,3,0,0" />
+                                    </StackPanel>
+                                    <TextBox Grid.Column="1" Text="{Binding Hotkeys.PauseToggle}"
+                                             IsReadOnly="True" Tag="PauseToggle" PreviewKeyDown="HotkeyField_PreviewKeyDown"
+                                             ToolTip="Click, then press the new shortcut" />
+                                </Grid>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                                    <Button Content="Reset defaults" Click="ResetHotkeys_Click" Margin="0,0,8,0" />
+                                    <Button Content="Apply hotkeys" Style="{StaticResource PrimaryButton}"
+                                            Click="SaveHotkeys_Click" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#141E31" BorderBrush="{StaticResource BorderBrush}"
+                                BorderThickness="1" CornerRadius="12" Padding="15" Margin="0,13,0,0">
+                            <TextBlock Text="Default shortcuts: Ctrl+Alt+F9 record · Ctrl+Alt+F10 play/stop · Ctrl+Alt+F11 stop all · Ctrl+Alt+F12 pause/resume. If Windows or another app already uses a shortcut, choose another combination."
+                                       Foreground="{StaticResource MutedBrush}" FontSize="11"
+                                       TextWrapping="Wrap" LineHeight="17" />
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <Border Grid.Row="2" Background="#111A2A" BorderBrush="#253149" BorderThickness="1"
+                    CornerRadius="9" Padding="12,8" Margin="0,14,0,0">
+                <DockPanel>
+                    <TextBlock x:Name="StatusText" Text="{Binding Status}" FontSize="11"
+                               Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" />
+                    <TextBlock DockPanel.Dock="Right" Text="MYTASK  •  WINDOWS DESKTOP"
+                               Foreground="#687792" FontSize="9" FontWeight="Bold" VerticalAlignment="Center" />
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

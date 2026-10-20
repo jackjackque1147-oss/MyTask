@@ -1,0 +1,7 @@
+bin/
+obj/
+.vs/
+publish/
+artifacts/
+*.user
+*.suo
