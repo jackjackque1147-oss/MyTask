@@ -2,7 +2,7 @@
 
 ## Current availability
 
-This workspace includes the MyTask source project and a GitHub Actions release workflow. The workflow creates a Windows setup installer, a portable executable, a ZIP archive, and SHA-256 checksums when a `v*` release tag is pushed. The current GitHub repository is empty until the source is pushed there; see [Publish a GitHub release](#publish-a-github-release).
+The `v0.1.0` release is published on [GitHub Releases](https://github.com/jackjackque1147-oss/MyTask/releases/latest). Its assets include the per-user Windows installer, portable executable, portable ZIP, and SHA-256 checksums. The repository also contains a GitHub Actions workflow that builds these assets for future `v*` release tags.
 
 ## Run the build in this workspace
 
@@ -59,19 +59,14 @@ The publish command creates only the executable. The tagged GitHub Actions workf
 
 ## Publish a GitHub release
 
-The target repository is [jackjackque1147-oss/MyTask](https://github.com/jackjackque1147-oss/MyTask). It is currently empty. The development environment used to prepare this guide has no Git client or GitHub write integration, so the initial source push must be done from your computer:
+The source repository is [jackjackque1147-oss/MyTask](https://github.com/jackjackque1147-oss/MyTask). To publish a later release:
 
-1. Install and open **GitHub Desktop**, then sign in to the GitHub account that owns the repository.
-2. In GitHub Desktop, choose **File > Clone repository > URL** and enter `https://github.com/jackjackque1147-oss/MyTask`. Clone the empty repository to a local folder.
-3. Copy the project source files into the cloned folder. Include `.github`, `installer`, `Models`, `Services`, and `ViewModels` folders, plus `.gitignore`, `App.xaml`, `App.xaml.cs`, `INSTALLATION.md`, `MainWindow.xaml`, `MainWindow.xaml.cs`, `MyTask.csproj`, and `README.md`.
-4. Do **not** copy `bin`, `obj`, `publish`, or `artifacts`. These generated files are ignored by `.gitignore`; the release workflow builds and attaches the application itself.
-5. In GitHub Desktop, review the changed-file list, enter a summary such as `Add MyTask desktop application`, choose **Commit to main**, then choose **Push origin**.
-6. Open the repository's **Releases** page and choose **Draft a new release**. Enter a new tag such as `v0.1.0`, select `main` as the target, add release notes if desired, then publish the release.
-7. The tag triggers the **Build and publish Windows release** GitHub Actions workflow. When it completes, the release will contain the setup installer, portable `.exe`, portable ZIP, and `SHA256SUMS.txt`.
+1. Commit and push your source changes to `main`.
+2. On GitHub, open **Releases > Draft a new release** and create a new version tag, for example `v0.1.1`, targeting `main`.
+3. Publish the release. The tag starts the **Build and publish Windows release** workflow.
+4. Check the repository's **Actions** tab. When the workflow succeeds, the release assets will include the setup installer, portable `.exe`, portable ZIP, and `SHA256SUMS.txt`.
 
 If the workflow cannot create a release asset, open **Settings > Actions > General** in the repository and ensure the workflow has permission to read and write repository contents. The workflow requests only the standard `contents: write` permission needed to attach release files.
-
-To create a later release, push the source changes first, then draft a release using a new version tag such as `v0.1.1`.
 
 ## Troubleshooting
 

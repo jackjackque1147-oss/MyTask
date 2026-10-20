@@ -34,7 +34,7 @@ User data is stored in `%LOCALAPPDATA%\MyTask` so the application can write data
 
 ## Installation
 
-For the GitHub Release installer, source-build steps, and instructions for publishing a release, see [INSTALLATION.md](INSTALLATION.md). The release workflow creates a per-user Windows installer and portable download when a version tag is published.
+Download the latest Windows installer from [GitHub Releases](https://github.com/jackjackque1147-oss/MyTask/releases/latest). For portable downloads, source-build steps, and upgrade/uninstall guidance, see [INSTALLATION.md](INSTALLATION.md).
 
 ## Safety and permissions
 
